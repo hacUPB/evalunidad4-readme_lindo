@@ -4,47 +4,100 @@
 #include <unistd.h>
 #include <string.h>
 #include <semaphore.h>
-#define Hilos 4
+#define Hilos 5
 
 
 
 // Variable en la que se almacenan los tacos
 int tacos = 0;
 
-// Metodo para hacer tacos
-void *make_tacos(void *args)
+/*Mutual Exclusion*/
+pthread_mutex_t mxShared;
+
+void* make_Tacos(void* args)
 {
-    while (1)
+    while(1)
     {
+        pthread_mutex_lock(&mxShared);
         tacos = tacos + 5;
+        pthread_mutex_unlock(&mxShared);
         sleep(7);
+        if (tacos > 40)
+        {
+        return NULL;
+        }
     }
-    return NULL;
+    
+
+    
 }
 
-void *consume_taco(void *args)
+void* consume_Tacos(void* args)
 {
-    if (tacos != 0)
+    while(1)
     {
-        tacos = tacos - 2;
+        if (tacos != 0)
+        {
+            pthread_mutex_lock(&mxShared);
+            tacos = tacos - 1;
+            pthread_mutex_unlock(&mxShared);
+        }
+        else
+        {
+            printf("\nEspere por favor, estamos preparando los tacos\n");
+        }
+        sleep(2);
+
+        if (tacos > 40)
+        {
+        return NULL;
+        }
+        
     }
-    return NULL;
+    
+    
 }
+
+void* inventario_Tacos(void* args)
+{
+    while(1)
+    {
+        printf("\nEn este momento hay: %i tacos en el inventario\n", tacos);
+        if (tacos > 40)
+        {
+        return NULL;
+        }
+    }
+    
+}
+
 
 int main(int argc, char const *argv[])
 {
     pthread_t hilo[Hilos];
-
-    pthread_create(&hilo[1], NULL, &make_tacos, NULL);
     
-    while (1)
+
+
+    pthread_create(&hilo[1], NULL, &make_Tacos, NULL);
+    
+    pthread_create(&hilo[2], NULL, &consume_Tacos, NULL);
+    /*
+    pthread_create(&hilo[3], NULL, &consume_Tacos, NULL);
+
+    pthread_create(&hilo[4], NULL, &consume_Tacos, NULL);
+    */
+    pthread_create(&hilo[5], NULL, &inventario_Tacos, NULL);
+
+    for (int i = 0; i < Hilos; i++)
     {
-        printf("tacos: %i",tacos);
-        sleep(5);    
+        if(pthread_join(hilo[i],NULL) != 0)
+        {
+            perror("Failed to join");
+        }
     }
     
-    
 
+    pthread_mutex_destroy(&mxShared);
     return 0;
 }
 
