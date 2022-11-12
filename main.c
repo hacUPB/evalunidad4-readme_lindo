@@ -27,9 +27,6 @@ void* make_Tacos(void* args)
         return NULL;
         }
     }
-    
-
-    
 }
 
 void* consume_Tacos(void* args)
@@ -51,11 +48,8 @@ void* consume_Tacos(void* args)
         if (tacos > 40)
         {
         return NULL;
-        }
-        
+        }   
     }
-    
-    
 }
 
 void* inventario_Tacos(void* args)
