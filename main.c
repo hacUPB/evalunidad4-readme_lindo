@@ -13,7 +13,7 @@ int tacos;
 
 /*Mutual Exclusion*/
 pthread_mutex_t mxShared;
-/*
+
 void* make_Tacos(void* args)
 {
     while(1)
@@ -28,7 +28,7 @@ void* make_Tacos(void* args)
         }
     }
 }
-*/
+
 void* consume_Tacos(void* args)
 {
     while(1)
@@ -75,22 +75,23 @@ int main(int argc, char const *argv[])
 
 
 
-    //pthread_create(&hilo[1], NULL, &make_Tacos, NULL);
+    pthread_create(&hilo[0], NULL, &make_Tacos, NULL);
+    
+    pthread_create(&hilo[1], NULL, &consume_Tacos, NULL);
     
     pthread_create(&hilo[2], NULL, &consume_Tacos, NULL);
-    /*
+
     pthread_create(&hilo[3], NULL, &consume_Tacos, NULL);
+    
+    pthread_create(&hilo[4], NULL, &inventario_Tacos, NULL);
 
-    pthread_create(&hilo[4], NULL, &consume_Tacos, NULL);
-    */
-    pthread_create(&hilo[5], NULL, &inventario_Tacos, NULL);
-
+    /*
     while (tacos < 600)
     {
         tacos = tacos + 5;
         sleep(20);
     }
-    
+    */
 
     
     for (int i = 0; i < Hilos; i++)
