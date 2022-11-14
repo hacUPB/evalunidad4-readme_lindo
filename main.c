@@ -19,7 +19,8 @@ void* make_Tacos(void* args)
         pthread_mutex_lock(&mxShared);
         tacos = tacos + 5;
         pthread_mutex_unlock(&mxShared);
-        sleep(7);
+        printf("\n5 Tacos listos\n");
+        sleep(2);
         if (tacos > 300)
         {
         return NULL;
@@ -36,6 +37,7 @@ void* consume_Tacos(void* args)
             pthread_mutex_lock(&mxShared);
             tacos = tacos - 1;
             pthread_mutex_unlock(&mxShared);
+            printf("\nSe vendio 1 taco\n");
         }
         else
         {
@@ -54,7 +56,7 @@ void* inventario_Tacos(void* args)
 {
     while(1)
     {
-        sleep(30);
+        sleep(5);
         printf("\nEn este momento hay: %i tacos en el inventario\n", tacos);
         if (tacos > 300)
         {
