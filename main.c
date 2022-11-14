@@ -8,10 +8,8 @@
 
 
 
-// Variable en la que se almacenan los tacos
-int tacos;
+int tacos = 100;
 
-/*Mutual Exclusion*/
 pthread_mutex_t mxShared;
 
 void* make_Tacos(void* args)
@@ -22,7 +20,7 @@ void* make_Tacos(void* args)
         tacos = tacos + 5;
         pthread_mutex_unlock(&mxShared);
         sleep(7);
-        if (tacos > 40)
+        if (tacos > 300)
         {
         return NULL;
         }
@@ -45,7 +43,7 @@ void* consume_Tacos(void* args)
         }
         sleep(2);
 
-        if (tacos > 200)
+        if (tacos > 300)
         {
         return NULL;
         }   
@@ -58,7 +56,7 @@ void* inventario_Tacos(void* args)
     {
         sleep(30);
         printf("\nEn este momento hay: %i tacos en el inventario\n", tacos);
-        if (tacos > 200)
+        if (tacos > 300)
         {
         return NULL;
         }
@@ -69,7 +67,6 @@ void* inventario_Tacos(void* args)
 
 int main(int argc, char const *argv[])
 {
-    tacos = 130;
     pthread_t hilo[Hilos];
     
 
@@ -85,14 +82,6 @@ int main(int argc, char const *argv[])
     
     pthread_create(&hilo[4], NULL, &inventario_Tacos, NULL);
 
-    /*
-    while (tacos < 600)
-    {
-        tacos = tacos + 5;
-        sleep(20);
-    }
-    */
-
     
     for (int i = 0; i < Hilos; i++)
     {
@@ -106,6 +95,3 @@ int main(int argc, char const *argv[])
     pthread_mutex_destroy(&mxShared);
     return 0;
 }
-
-//gcc -c -g -Wall main.c -o main.o
-//gcc -g -Wall main.o -o eje
