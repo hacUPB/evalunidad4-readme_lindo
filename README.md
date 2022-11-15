@@ -1,6 +1,6 @@
 Empresa de Taquitos
 
-Cuneta con cuatro hilos, uno en donde se hacen los tacos, tres que van cosumiendo los tacos y el ultimmo para el inventario de los tacos.
+Cuenta con cuatro hilos, uno en donde se hacen los tacos, tres que van cosumiendo los tacos y el ultimmo para el inventario de los tacos.
 
 la funcion para hacer los tacos, es un ciclo infinito que aumenta los tacos de 5 en 5 cada 2 segundos y si llega a 160 deja de aumentar los tacos.
 
