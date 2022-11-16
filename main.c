@@ -44,18 +44,17 @@ void *make_Tacos(void *args)
         pthread_mutex_unlock(&mxShared);
 
         // Luego imprimimos el numero de tacos que se hicieron
-        printf("\nAcaban de salir 5 Tacos del Horno   :D\n");
-
-        // Sleep para parar el hilo 2 seg
-        sleep(2);
+        printf("\nAcaban de salir 5 Tacos del Horno :D\n");
 
         // Un condicional, en el que si hay mas de 160 tacos, termine el hilo
-        if (tacos > 160)
+        if (tacos > 130)
         {
 
             // Retornar nulo, nos ayuda a salir del ciclo
             return NULL;
         }
+        // Sleep para parar el hilo 2 seg
+        sleep(2);
     }
 }
 
@@ -89,14 +88,13 @@ void *consume_Tacos(void *args)
             printf("\nEspere por favor, estamos preparando los tacos\n");
         }
 
-        // Sleep para parar el hilo 2 seg
-        sleep(2);
-
-        if (tacos > 160)
+        if (tacos > 130)
         {
             // Retornar nulo, nos ayuda a salir del ciclo
             return NULL;
         }
+        // Sleep para parar el hilo 2 seg
+        sleep(2);
     }
 }
 
@@ -111,30 +109,29 @@ void *inventario_Tacos(void *args)
         // Vamos a imprimir cuantos tacos hay
         printf("\nEn este momento hay: %i tacos en el inventario\n", tacos);
 
-        // Luego vamos a dormir el ciclo 5 seg
-        sleep(5);
-
         // Cuando los tacos sean mayores a 160
-        if (tacos > 160)
+        if (tacos > 130)
         {
             // vamos a salir del inventario de tacos
             return NULL;
         }
+        // Luego vamos a dormir el ciclo 5 seg
+        sleep(5);
     }
 }
 
 int main(int argc, char const *argv[])
 {
-    // Creamos los hilos, utilizando un Vector de Numero de hilos definido arriba
-    pthread_t hilo[NumeroHilos];
+    char a;
+    printf("\n\n\n\n--Bienvenido a la taqueria ReadMe Lindo --\n\n");
+    printf("Para ingresar 'y' || De lo contrario 'n'\n");
+    scanf("%c", &a);
 
-    printf("--Bienvenido a la taquería! --\n\nPara iniciar escriba 'y', de lo contrario 'n'\n");
-
-    char inicio;
-    scanf("%c", inicio);
-
-    if (inicio == 'y')
+    if (a == 'y')
     {
+
+        // Creamos los hilos, utilizando un Vector de Numero de hilos definido arriba
+        pthread_t hilo[NumeroHilos];
 
         // Creamos cada hilo por aparte para que funcione:
 
@@ -164,15 +161,45 @@ int main(int argc, char const *argv[])
                 perror("Failed to join (hilo %i) ");
             }
         }
-    }
-    else
-    {
-        printf("\nGracias por visitarnos, espero vuelvas pronto\n");
-    }
 
-    // Liberamos la memoria de &mxShared
-    pthread_mutex_destroy(&mxShared);
+        // Liberamos la memoria de &mxShared
+        pthread_mutex_destroy(&mxShared);
 
-    /*SI TODO SALE BIEN, EL PROGRAMA RETORNARA 0*/
-    return 0;
+        /*Lo siguiente es una forma de calificar*/
+        printf("\n\n\n\n\nDesea Calificar su experiencia? (y/n) \n");
+        char r;
+        scanf("%c", &r);
+        fflush(stdin);
+
+        if (r == 'y')
+        {
+            printf("Por favor califique la experiencia del 1 al 5\n");
+
+            int cal;
+            scanf("%i", &cal);
+
+            if (cal >= 3)
+            {
+                if (cal == 5)
+                {
+                    printf("Gracias por su visita, vuelva pronto\n");
+                }
+                else
+                {
+                    printf("Tomaremos en consideracion la calificacion para seguir mejorando nuesro servicio!\nVuelva pronto!");
+                }
+            }
+            if (cal < 3)
+            {
+                printf("Sentimos que su experiencia no haya sido la ideal\nEstaremos mejorando nuestro servicio, gracias por su visita\n");
+            }
+        }
+        else
+        {
+            printf("Gracias por su visita, vuelva pronto\n");
+        }
+
+        /*SI TODO SALE BIEN, EL PROGRAMA RETORNARA 0*/
+        return 0;
+    }
 }
