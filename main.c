@@ -52,15 +52,15 @@ void* make_Tacos(void* args)
 
 
         //Luego imprimimos el numero de tacos que se hicieron
-        printf("\n5 Tacos listos\n");
+        printf("\nAcaban de salir 5 Tacos del Horno.\n");
 
 
         //Sleep para parar el hilo 2 seg
         sleep(2);
 
 
-        //Un condicional, en el que si hay mas de 300 tacos, termine el hilo
-        if (tacos > 300)
+        //Un condicional, en el que si hay mas de 160 tacos, termine el hilo
+        if (tacos > 160)
         {
 
             //Retornar nulo, nos ayuda a salir del ciclo
@@ -112,7 +112,7 @@ void* consume_Tacos(void* args)
         //Sleep para parar el hilo 2 seg
         sleep(2);
 
-        if (tacos > 300)
+        if (tacos > 160)
         {
             //Retornar nulo, nos ayuda a salir del ciclo
             return NULL;
@@ -140,8 +140,8 @@ void* inventario_Tacos(void* args)
         sleep(5);
         
         
-        //Cuando los tacos sean mayores a 300 
-        if (tacos > 300)
+        //Cuando los tacos sean mayores a 160 
+        if (tacos > 160)
         {
             //vamos a salir del inventario de tacos
             return NULL;
