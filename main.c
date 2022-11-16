@@ -37,14 +37,17 @@ void *make_Tacos(void *args)
         pthread_mutex_lock(&mxShared);
 
         // Aumentamos la vairable tacos en 5
-        tacos = tacos + 5;
+        tacos = tacos + 7;
 
         // Un mutex al que se le manda la direccion de memoria de la estructura pthread_mutex_t
         // Lo que permite usar el unlock de la variable tacos
         pthread_mutex_unlock(&mxShared);
 
         // Luego imprimimos el numero de tacos que se hicieron
-        printf("\nAcaban de salir 5 Tacos del Horno :D\n");
+        printf("\nAcaban de salir 7 Tacos del Horno :D\n");
+
+        // Sleep para parar el hilo 2 seg
+        sleep(2);
 
         // Un condicional, en el que si hay mas de 160 tacos, termine el hilo
         if (tacos > 130)
@@ -53,8 +56,6 @@ void *make_Tacos(void *args)
             // Retornar nulo, nos ayuda a salir del ciclo
             return NULL;
         }
-        // Sleep para parar el hilo 2 seg
-        sleep(2);
     }
 }
 
@@ -81,6 +82,9 @@ void *consume_Tacos(void *args)
 
             // Imprimimos el numero de tacos que se vendieron
             printf("\nSe vendio 1 taco\n");
+
+            // Sleep para parar el hilo 2 seg
+            sleep(2);
         }
         else
         {
@@ -93,8 +97,6 @@ void *consume_Tacos(void *args)
             // Retornar nulo, nos ayuda a salir del ciclo
             return NULL;
         }
-        // Sleep para parar el hilo 2 seg
-        sleep(2);
     }
 }
 
@@ -108,6 +110,8 @@ void *inventario_Tacos(void *args)
 
         // Vamos a imprimir cuantos tacos hay
         printf("\nEn este momento hay: %i tacos en el inventario\n", tacos);
+        // Luego vamos a dormir el ciclo 5 seg
+        sleep(5);
 
         // Cuando los tacos sean mayores a 160
         if (tacos > 130)
@@ -115,8 +119,6 @@ void *inventario_Tacos(void *args)
             // vamos a salir del inventario de tacos
             return NULL;
         }
-        // Luego vamos a dormir el ciclo 5 seg
-        sleep(5);
     }
 }
 
