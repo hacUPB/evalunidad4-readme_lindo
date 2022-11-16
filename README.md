@@ -8,6 +8,6 @@ en la funcion de consumer tacos, es un ciclo en el que se van restando tacos y s
 
 por ultimo en las funcion de inventario imprime cuantos tacos hay cada 5 segundos.
 
-en el main se crean los 5 hilos para que cada uno hagan las funcion respectiba que se mencionaron anteriormente.
+en el main se crean los 5 hilos para que cada uno hagan las funcion respectiva que se mencionaron anteriormente.
 
 link del video: https://drive.google.com/drive/folders/1gWuL2oWuD7S9mQFOc4f4_rCfp4AZCqHG?usp=sharing 
